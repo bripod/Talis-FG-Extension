@@ -10,5 +10,7 @@ function onDragStart(button, x, y, draginfo)
 end
 					
 function onButtonPress()
+	local winNode = window.getDatabaseNode();
+	Debug.chat(winNode);
 	return action();
 end

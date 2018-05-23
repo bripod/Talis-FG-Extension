@@ -15,6 +15,8 @@ function processRoll(sCommand, sParams)
 end
 
 function getRoll(rActor, bSecretRoll)
+--	local bTest = DB;
+--	Debug.chat(bTest);
 	local rRoll = {};
 	rRoll.sType = "talisRoll";
 	rRoll.aDice = { "d8" };
@@ -30,6 +32,13 @@ function performRoll(draginfo, rActor, bSecretRoll)
 end
 
 function onRoll(rSource, rTarget, rRoll)
+--	local sTest = databasecontrol.getDatabaseNode();
+--	Debug.chat(sTest);	
+--	Debug.console(rRoll);
+--	Debug.console(rRoll.aDice[1].result);
+--	talis_d8_result = rRoll.aDice[1].result;
+--	Debug.console('talis_d8_result: ');
+--	Debug.console(talis_d8_result);
 	local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
 	Comm.deliverChatMessage(rMessage);
 end

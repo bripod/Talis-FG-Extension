@@ -4,80 +4,95 @@
 	<windowclass name="talisWindow">
 		<frame>partysheet</frame>
 		<placement>
-			<size height="600"/>
+			<size width="500" height="600"/>
 		</placement>
 		<noresize/>
 		<minimize>minimized_npc</minimize>
 		<nodelete/>
 		<sheetdata>
+
 			<windowtitlebar name="title">
 				<resource>talis_window_title</resource>
 			</windowtitlebar>
+			
 			<anchor_title_charsheet name="contentanchor"/>
-			<genericcontrol name="contentframe">
-				<anchored to="contentanchor">
-					<top anchor="bottom" offset="0"/>
-					<left/>
-					<right/>
-					<bottom parent="" offset="-30"/>
-				</anchored>
-			</genericcontrol>
-
+			
 			<label_charframetop name="card1_section">
+				<!--<anchored to="contentanchor" height="25" width="110">
+					<top offset="75" />
+					<right anchor="center" offset="-100"/>
+				</anchored>-->
 				<anchored height="25">
-					<top parent="button_roll_1" anchor="top" relation="relative" offset="75"/>
+					<top parent="contentanchor" anchor="top" relation="relative" offset="75"/>
 					<left offset="50"/>
 					<right offset="-50"/>
 				</anchored>
 				<bounds>55,110,-335,20</bounds>
+				
 				<static>First Card - d8</static>
 			</label_charframetop>
-			<button_roll name="button_roll_1">
+			
+			<button_roll name="button_roll_d8">
 				<anchored to="card1_section" position="insidetopleft" offset="25,35" width="25" height="25"/>
-				<script name="TalisRoll" file="utility/scripts/utility_talis_roll.lua"/>
+				<script  name="TalisRoll" file="utility/scripts/utility_talis_roll.lua"/>
 			</button_roll>
-			<simplenumber name="number_roll_1">
-				<anchored to="button_roll_1" position="insidetopleft" offset="35,0" width="25" height="25"/>
+			
+			<numberfield name="talisCard1">
+				<anchored to="button_roll_d8" position="insidetopleft" offset="35,0" width="25" height="25"/>
 				<frame name="fieldlight" offset="7,5,7,5"/>
-				<readonly/>
-			</simplenumber>
+				<resource>talis_d8_result</resource>
+				<hideonvalue>0</hideonvalue>
+			</numberfield>
 			
 			<label_charframetop name="card2_section">
+				<!--<anchored to="contentanchor" height="25" width="110">
+					<top offset="75" />
+					<right anchor="center"/>
+				</anchored>-->
 				<anchored height="25">
-					<top parent="button_roll_1" anchor="top" relation="relative" offset="75"/>
+					<top parent="contentanchor" anchor="top" relation="relative" offset="75"/>
 					<left offset="50"/>
 					<right offset="-50"/>
 				</anchored>
 				<bounds>195,110,-195,20</bounds>
 				<static>Second Card - d6</static>
 			</label_charframetop>
-			<button_roll name="button_roll_2">
+			
+			<button_roll name="button_roll_d6">
 				<anchored to="card2_section" position="insidetopleft" offset="25,35" width="25" height="25"/>
+				<static>d6</static>
 				<script name="TalisRoll" file="utility/scripts/utility_talis_roll.lua"/>
 			</button_roll>
-			<simplenumber name="number_roll_2">
-				<anchored to="button_roll_2" position="insidetopleft" offset="35,0" width="25" height="25"/>
+			
+			<simplenumber name="talisCard2">
+				<anchored to="button_roll_d6" position="insidetopleft" offset="35,0" width="25" height="25"/>
 				<frame name="fieldlight" offset="7,5,7,5"/>
-				<readonly/>
+				<hideonvalue>0</hideonvalue>
 			</simplenumber>
 			
 			<label_charframetop name="card3_section">
+				<!--<anchored to="contentanchor" height="25" width="110">
+					<top offset="75" />
+					<right anchor="center" offset="150"/>
+				</anchored>-->
 				<anchored height="25">
-					<top parent="button_roll_1" anchor="top" relation="relative" offset="75"/>
+					<top parent="contentanchor" anchor="top" relation="relative" offset="75"/>
 					<left offset="50"/>
 					<right offset="-50"/>
 				</anchored>
 				<bounds>335,110,-55,20</bounds>
 				<static>Third Card - d4</static>
 			</label_charframetop>
-			<button_roll name="button_roll_3">
+			
+			<button_roll name="button_roll_d4">
 				<anchored to="card3_section" position="insidetopleft" offset="25,35" width="25" height="25"/>
 				<script name="TalisRoll" file="utility/scripts/utility_talis_roll.lua"/>
 			</button_roll>
-			<simplenumber name="number_roll_3">
-				<anchored to="button_roll_3" position="insidetopleft" offset="35,0" width="25" height="25"/>
+			
+			<simplenumber name="talisCard3">
+				<anchored to="button_roll_d4" position="insidetopleft" offset="35,0" width="25" height="25"/>
 				<frame name="fieldlight" offset="7,5,7,5"/>
-				<readonly/>
+				<hideonvalue>0</hideonvalue>
 			</simplenumber>
 			
 			<simplenumber name="hand_total">
@@ -85,6 +100,7 @@
 				<frame name="fieldlight" offset="7,5,7,5"/>
 				<readonly/>
 			</simplenumber>
+			
 			<label_charfieldtop>
 				<anchored to="hand_total" offset="0,5" width="75"/>
 				<static>Hand Total</static>

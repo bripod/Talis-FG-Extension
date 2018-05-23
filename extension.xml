@@ -21,6 +21,9 @@
 	<base>
 
 		<string name="talis_window_title">How about a game of Talis?</string>
+		
+		<string name="talis_d8_result">1</string>
+		
 		<script name="LibraryDataTalis" file="scripts/data_library_talis.lua"/>
 		<script name="ConnectionManagerADND" file="scripts/manager_connection_adnd.lua"/>
 		<script name="ActionTalis" file="scripts/manager_action_talis.lua"/>	
