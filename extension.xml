@@ -27,6 +27,7 @@
 		<script name="LibraryDataTalis" file="scripts/data_library_talis.lua"/>
 		<script name="ConnectionManagerADND" file="scripts/manager_connection_adnd.lua"/>
 		<script name="ActionTalis" file="scripts/manager_action_talis.lua"/>	
+		<script name="TalisRoll" file="utility/scripts/utility_talis_roll.lua"/>
 
 		<includefile source="utility/talisWindow.xml"/>
 

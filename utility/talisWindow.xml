@@ -9,8 +9,8 @@
 		<noresize/>
 		<minimize>minimized_npc</minimize>
 		<nodelete/>
+		
 		<sheetdata>
-
 			<windowtitlebar name="title">
 				<resource>talis_window_title</resource>
 			</windowtitlebar>
@@ -107,6 +107,7 @@
 			</label_charfieldtop>
 			
 			<close_charsheethelper/>
+			
 
 		</sheetdata>
 	</windowclass>

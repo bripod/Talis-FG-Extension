@@ -11,23 +11,23 @@ function onInit()
 end
 
 function processRoll(sCommand, sParams)
-	performRoll(draginfo, rActor, bSecretRoll);
+	performRoll(draginfo, rActor);
 end
 
-function getRoll(rActor, bSecretRoll)
+function getRoll(rActor, sDie)
 --	local bTest = DB;
 --	Debug.chat(bTest);
 	local rRoll = {};
 	rRoll.sType = "talisRoll";
-	rRoll.aDice = { "d8" };
+	rRoll.aDice = { sDie };
 	rRoll.sDesc = "Talis!";
-	rRoll.bSecret = bSecretRoll;
+	rRoll.bSecret = true;
 	return rRoll;
 end
 
 -- Start the action process
-function performRoll(draginfo, rActor, bSecretRoll)
-	local rRoll = getRoll(rActor, bSecretRoll);
+function performRoll(draginfo, rActor, sDie)
+	local rRoll = getRoll(rActor, sDie);
 	ActionsManager.performAction(draginfo, rActor, rRoll);
 end
 
