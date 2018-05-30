@@ -5,31 +5,31 @@
 <root version="3.0">
 
 	<properties>
-		<name>CoreRPG - Talis Game</name>
+		<name>CoreRPG - Talis2</name>
 		<version>0.1</version>
 		<loadorder>99</loadorder>
 		<description>
-			<text>TalisGame, added /talis command for host initiate a round of Talis.</text>
+			<text>Adds scripts to track a round of Talis.</text>
 			<website/>
 			<author>bripod</author>
 		</description>
 	</properties>
 
 	<announcement
-		text="TalisGame Extension v0.1\rCoreRPG/5E version for Fantasy Grounds\r--by bripod 2018.05.21"
+		text="Talis Extension v0.1\rCoreRPG/5E version for Fantasy Grounds\r--by bripod 2018.05.21"
 		font="emotefont"/>
 	<base>
 
-		<string name="talis_window_title">How about a game of Talis?</string>
-		
-		<string name="talis_d8_result">1</string>
+		<string name="talisTableTitle">How about a game of Talis?</string>
+		<string name="talisTableManagerTitle">Talis Table Manager</string>
+		<string name="talis_label_action">Bet</string>
 		
 		<script name="LibraryDataTalis" file="scripts/data_library_talis.lua"/>
 		<script name="ConnectionManagerADND" file="scripts/manager_connection_adnd.lua"/>
 		<script name="TalisManager" file="scripts/manager_action_talis.lua"/>	
-		<script name="TalisRoll" file="utility/scripts/utility_talis_roll.lua"/>
+		
 
-		<includefile source="utility/talisWindow.xml"/>
+		<includefile source="talis.xml"/>
 
 	</base>
 
