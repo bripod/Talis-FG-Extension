@@ -17,6 +17,44 @@
 		</genericcontrol>
 	</template> 
 	
+	<template name="label_gp">
+		<stringcontrol>
+			<anchored position="insidetopleft" offset="0,20" width="25" height="25"/>
+			<font>sheetlabel</font>
+			<static>gp</static>
+			<center />
+			<nodrag />
+			<readonly />
+		</stringcontrol>
+	</template>
+	<template name="label_sp">
+		<stringcontrol>
+			<anchored position="insidetopleft" offset="0,20" width="25" height="25"/>
+			<font>sheetlabel</font>
+			<static>sp</static>
+			<center />
+			<nodrag />
+			<readonly />
+		</stringcontrol>
+	</template>
+	<template name="label_cp">
+		<stringcontrol>
+			<anchored position="insidetopleft" offset="0,20" width="25" height="25"/>
+			<font>sheetlabel</font>
+			<static>cp</static>
+			<center />
+			<nodrag />
+			<readonly />
+		</stringcontrol>
+	</template>
+	<template name="talisbetnumber">
+		<simplenumber name="anteGP" source="tableRules.ante.GP">
+			<anchored position="insidetopleft" width="25" height="25"/>
+			<frame name="fieldlight" offset="7,5,7,5"/>
+			<hideonvalue>0</hideonvalue>
+		</simplenumber>
+	</template>
+	
 	<windowclass name="talis_client">
 		<frame>partysheet</frame>
 		<placement>
@@ -65,47 +103,38 @@
 			
 			<numberfield name="card1_value">
 				<anchored to="card1" position="insidetopleft" offset="25,90" width="30" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
+				<!-- <frame name="fieldlight" offset="7,5,7,5"/> -->
 				<font>reference-b-large</font>
 			</numberfield>
 			<numberfield name="card2_value">
 				<anchored to="card2" position="insidetopleft" offset="25,90" width="30" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
+				<!-- <frame name="fieldlight" offset="7,5,7,5"/> -->
 				<font>reference-b-large</font>
 			</numberfield>
 			<numberfield name="card3_value">
 				<anchored to="card3" position="insidetopleft" offset="25,90" width="30" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
+				<!-- <frame name="fieldlight" offset="7,5,7,5"/> -->
 				<font>reference-b-large</font>
 			</numberfield>
 			
-			<simplenumber name="GP_already_bet">
-				<anchored to="card1" position="insidetopleft" offset="-5,165" width="25" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
-			</simplenumber>
-			<label name="gp">
-				<anchored to="GP_already_bet" position="insidetopleft" offset="0,20" width="25" height="25"/>
-				<static>gp</static>
-				<center />
-			</label>
-			<simplenumber name="SP_already_bet">
-				<anchored to="GP_already_bet" position="insidetopleft" offset="33,0" width="25" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
-			</simplenumber>
-			<label name="sp">
-				<anchored to="SP_already_bet" position="insidetopleft" offset="0,20" width="25" height="25"/>
-				<static>sp</static>
-				<center />
-			</label>
-			<simplenumber name="CP_already_bet">
-				<anchored to="SP_already_bet" position="insidetopleft" offset="32,0" width="25" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
-			</simplenumber>
-			<label name="sp">
-				<anchored to="CP_already_bet" position="insidetopleft" offset="0,20" width="25" height="25"/>
-				<static>cp</static>
-				<center />
-			</label>
+			<talisbetnumber name="GP_already_bet">
+				<anchored to="card1" offset="-5,165"/>
+			</talisbetnumber>
+			<label_gp>
+				<anchored to="GP_already_bet"/>
+			</label_gp>
+			<talisbetnumber name="SP_already_bet">
+				<anchored to="GP_already_bet" offset="33,0"/>
+			</talisbetnumber>
+			<label_sp>
+				<anchored to="SP_already_bet"/>
+			</label_sp>
+			<talisbetnumber name="CP_already_bet">
+				<anchored to="SP_already_bet" offset="32,0"/>
+			</talisbetnumber>
+			<label_cp>
+				<anchored to="CP_already_bet"/>
+			</label_cp>
 			<label_charfieldtop>
 				<anchored to="card1" offset="0,-160" width="90"/>
 				<static>Already Bet</static>
@@ -121,36 +150,25 @@
 				<anchored to="hand_total" offset="0,5" width="80"/>
 				<static>Hand Total</static>
 			</label_charfieldtop>
-			<!--
-			Ideally the "total in pot" section will grab values from DB nodes like talis.potGP, talis.potSP, talis.potCP instead of creating three pot-total nodes for each player
-			-->
-			<simplenumber name="GP_in_pot">
-				<anchored to="card3" position="insidetopleft" offset="-5,165" width="25" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
-			</simplenumber>
-			<label name="gp">
-				<anchored to="GP_in_pot" position="insidetopleft" offset="0,20" width="25" height="25"/>
-				<static>gp</static>
-				<center />
-			</label>
-			<simplenumber name="SP_in_pot">
-				<anchored to="GP_in_pot" position="insidetopleft" offset="33,0" width="25" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
-			</simplenumber>
-			<label name="sp">
-				<anchored to="SP_in_pot" position="insidetopleft" offset="0,20" width="25" height="25"/>
-				<static>sp</static>
-				<center />
-			</label>
-			<simplenumber name="CP_in_pot">
-				<anchored to="SP_in_pot" position="insidetopleft" offset="32,0" width="25" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
-			</simplenumber>
-			<label name="sp">
-				<anchored to="CP_in_pot" position="insidetopleft" offset="0,20" width="25" height="25"/>
-				<static>cp</static>
-				<center />
-			</label>
+
+			<talisbetnumber name="GP_in_pot" source="..potGP">
+				<anchored to="card3" offset="-5,165"/>
+			</talisbetnumber>
+			<label_gp>
+				<anchored to="GP_in_pot"/>
+			</label_gp>
+			<talisbetnumber name="SP_in_pot" source="..potSP">
+				<anchored to="GP_in_pot" offset="33,0"/>
+			</talisbetnumber>
+			<label_sp>
+				<anchored to="SP_in_pot"/>
+			</label_sp>
+			<talisbetnumber name="CP_in_pot" source="..potCP">
+				<anchored to="SP_in_pot" offset="32,0"/>
+			</talisbetnumber>
+			<label_cp>
+				<anchored to="CP_in_pot"/>
+			</label_cp>
 			<label_charfieldtop>
 				<anchored to="card3" offset="0,-160" width="90"/>
 				<static>Total In Pot</static>
@@ -158,33 +176,7 @@
 			</label_charfieldtop>
 			
 
-			<!-- <simplenumber name="betGPRound1">
-				<anchored to="card1" position="insidetopleft" offset="-5,185" width="25" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
-			</simplenumber>
-			<label name="gp">
-				<anchored to="betGPRound1" position="insidetopleft" offset="0,20" width="25" height="25"/>
-				<static>gp</static>
-				<center />
-			</label>
-			<simplenumber name="betSPRound1">
-				<anchored to="betGPRound1" position="insidetopleft" offset="33,0" width="25" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
-			</simplenumber>
-			<label name="sp">
-				<anchored to="betSPRound1" position="insidetopleft" offset="0,20" width="25" height="25"/>
-				<static>sp</static>
-				<center />
-			</label>
-			<simplenumber name="betCPRound1">
-				<anchored to="betSPRound1" position="insidetopleft" offset="32,0" width="25" height="25"/>
-				<frame name="fieldlight" offset="7,5,7,5"/>
-			</simplenumber>
-			<label name="sp">
-				<anchored to="betCPRound1" position="insidetopleft" offset="0,20" width="25" height="25"/>
-				<static>cp</static>
-				<center />
-			</label>
+			<!-- 
 
 			<button_text>
 				<anchored to="card1" position="insidetopleft" offset="10,145" width="60" height="20" />
@@ -205,7 +197,7 @@
 		<!-- none of this is ready yet, obviously -->
 		<frame>partysheet</frame>
 		<placement>
-			<size width="500" height="600"/>
+			<size width="600" height="600"/>
 		</placement>
 		<noresize/>
 		<minimize>minimized_npc</minimize>
@@ -215,6 +207,119 @@
 				<resource>talisTableManagerTitle</resource>
 			</windowtitlebar>
 			
+			<anchor_title_talis name="contentanchor"/>
+			
+			<label_charframetop name="talisSetup">
+				<anchored height="25">
+					<top parent="contentanchor" anchor="top" relation="relative" offset="75"/>
+					<left offset="50"/>
+					<right offset="-50"/>
+				</anchored>
+				<static>Talis Table Settings</static>
+			</label_charframetop>
+			
+			<talisbetnumber name="anteGP" source="tableRules.ante.GP">
+				<anchored to="talisSetup" offset="0,50"/>
+			</talisbetnumber>
+			<label_gp>
+				<anchored to="anteGP"/>
+			</label_gp>
+			<talisbetnumber name="anteSP" source="tableRules.ante.SP">
+				<anchored to="anteGP" offset="33,0"/>
+				<default>1</default>
+			</talisbetnumber>
+			<label_sp>
+				<anchored to="anteSP"/>
+			</label_sp>
+			<talisbetnumber name="anteCP" source="tableRules.ante.CP">
+				<anchored to="anteSP" offset="32,0"/>
+			</talisbetnumber>
+			<label_cp>
+				<anchored to="anteCP"/>
+			</label_cp>
+			<label_charfieldtop>
+				<anchored to="talisSetup"  position="insidetopleft" offset="0,30" width="90"/>
+				<static>Table Ante</static>
+				<center/>
+			</label_charfieldtop>
+
+			<talisbetnumber name="round1GP" source="tableRules.round1bet.GP">
+				<anchored to="talisSetup" offset="125,50"/>
+			</talisbetnumber>
+			<label_gp>
+				<anchored to="round1GP"/>
+			</label_gp>
+			<talisbetnumber name="round1SP" source="tableRules.round1bet.SP">
+				<anchored to="round1GP" offset="33,0"/>
+				<default>4</default>
+			</talisbetnumber>
+			<label_sp>
+				<anchored to="round1SP"/>
+			</label_sp>
+			<talisbetnumber name="round1CP" source="tableRules.round1bet.CP">
+				<anchored to="round1SP" offset="32,0"/>
+				<default>5</default>
+			</talisbetnumber>
+			<label_cp>
+				<anchored to="round1CP"/>
+			</label_cp>
+			<label_charfieldtop>
+				<anchored to="talisSetup"  position="insidetopleft" offset="125,30" width="90"/>
+				<static>Round 1 Bets</static>
+				<center/>
+			</label_charfieldtop>
+			
+			<talisbetnumber name="round2GP" source="tableRules.round2bet.GP">
+				<anchored to="talisSetup" offset="250,50"/>
+				<default>1</default>
+			</talisbetnumber>
+			<label_gp>
+				<anchored to="round2GP"/>
+			</label_gp>
+			<talisbetnumber name="round2SP" source="tableRules.round2bet.SP">
+				<anchored to="round2GP" offset="33,0"/>
+				<default>5</default>
+			</talisbetnumber>
+			<label_sp>
+				<anchored to="round2SP"/>
+			</label_sp>
+			<talisbetnumber name="round2CP" source="tableRules.round2bet.CP">
+				<anchored to="round2SP" offset="32,0"/>
+			</talisbetnumber>
+			<label_cp>
+				<anchored to="round2CP"/>
+			</label_cp>
+			<label_charfieldtop>
+				<anchored to="talisSetup"  position="insidetopleft" offset="250,30" width="90"/>
+				<static>Round 2 Bets</static>
+				<center/>
+			</label_charfieldtop>
+
+			<talisbetnumber name="round3GP" source="tableRules.round3bet.GP">
+				<anchored to="talisSetup" offset="375,50"/>
+				<default>5</default>
+			</talisbetnumber>
+			<label_gp>
+				<anchored to="round3GP"/>
+			</label_gp>
+			<talisbetnumber name="round3SP" source="tableRules.round3bet.SP">
+				<anchored to="round3GP" offset="33,0"/>
+			</talisbetnumber>
+			<label_sp>
+				<anchored to="round3SP"/>
+			</label_sp>
+			<talisbetnumber name="round3CP" source="tableRules.round3bet.CP">
+				<anchored to="round3SP" offset="32,0"/>
+			</talisbetnumber>
+			<label_cp>
+				<anchored to="round3CP"/>
+			</label_cp>
+			<label_charfieldtop>
+				<anchored to="talisSetup"  position="insidetopleft" offset="375,30" width="90"/>
+				<static>Round 3 Bets</static>
+				<center/>
+			</label_charfieldtop>
+
 			<close_charsheethelper/>
 			
 		</sheetdata>
