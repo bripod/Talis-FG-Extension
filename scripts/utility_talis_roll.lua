@@ -6,9 +6,9 @@ end
 
 function getDie()
 	local sDie = "d8";
-	if getName() == "button_roll_d6" then
+	if getName() == "card2_button" then
 		sDie = "d6";
-	elseif getName() == "button_roll_d4" then
+	elseif getName() == "card3_button" then
 		sDie = "d4";
 	end	
 	return sDie;
@@ -23,12 +23,12 @@ function onButtonPress()
 	local sTalisUserNode = "talis." .. User.getUsername() .. ".";
 --	Debug.chat(sTalisUserNode);
 	local rTalisRoll = {};
-	if getName() == "button_roll_d8" then
-		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. "talisCard1");
-	elseif getName() == "button_roll_d6" then
-		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. "talisCard2");
+	if getName() == "card1_button" then
+		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. "card1_value");
+	elseif getName() == "card2_button" then
+		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. "card2_value");
 	else
-		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. "talisCard3");
+		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. "card3_value");
 	end	
 	sDie = getDie();
 	return action(draginfo, sDie, rTalisRoll);
