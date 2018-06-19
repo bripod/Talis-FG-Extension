@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<!-- Common -->
+	<string name="talisTableTitle">How about a game of Talis?</string>
+	<string name="talisTableManagerTitle">Talis Table Manager</string>
+	<string name="talis_label_action">Bet</string>
+	<string name="talis_label_start">Deal</string>
+	<string name="talis_label_addusers">Add All Players</string>
+	<string name="talis_label_startgame">Start Game</string>
+	<string name="talis_label_check">Check</string>
+	<string name="talis_label_call">Call</string>
+	<string name="talis_label_raise">Raise</string>
+	<string name="talis_label_fold">Fold</string>
+	
+	
+</root>

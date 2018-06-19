@@ -5,21 +5,10 @@
   attribution and copyright information.
 -->
 
-<root>
-	<template name="anchor_title_talis">
-		<genericcontrol>
-			<anchored height="0">
-				<top offset="35" />
-				<left parent="" anchor="left" offset="15" />
-				<right parent="" anchor="right" offset="-15" />
-			</anchored>
-			<disabled />
-		</genericcontrol>
-	</template> 
-	
+<root>	
 	<template name="label_gp">
 		<stringcontrol>
-			<anchored position="insidetopleft" offset="0,20" width="25" height="25"/>
+			<anchored position="insidetopleft" offset="0,18" width="25" height="25"/>
 			<font>sheetlabel</font>
 			<static>gp</static>
 			<center />
@@ -29,7 +18,7 @@
 	</template>
 	<template name="label_sp">
 		<stringcontrol>
-			<anchored position="insidetopleft" offset="0,20" width="25" height="25"/>
+			<anchored position="insidetopleft" offset="0,18" width="25" height="25"/>
 			<font>sheetlabel</font>
 			<static>sp</static>
 			<center />
@@ -39,7 +28,7 @@
 	</template>
 	<template name="label_cp">
 		<stringcontrol>
-			<anchored position="insidetopleft" offset="0,20" width="25" height="25"/>
+			<anchored position="insidetopleft" offset="0,18" width="25" height="25"/>
 			<font>sheetlabel</font>
 			<static>cp</static>
 			<center />
@@ -55,6 +44,89 @@
 		</simplenumber>
 	</template>
 	
+	<!-- templates based off of party sheet templates -->
+	<!-- <template name="anchor_talis_main_header">
+		<genericcontrol to="anchor_title_talis" name="headeranchor" offset="0,55">
+			<anchored height="35">
+				<top />
+				<left offset="10" />
+				<right offset="-15" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template> -->
+	
+	<template name="anchor_title_talis">
+		<genericcontrol>
+			<anchored height="0">
+				<top parent="title" anchor="bottom" offset="0" />
+				<left parent="" anchor="left" offset="20" />
+				<right parent="" anchor="right" offset="-30" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	<template name="sub_talis">
+		<subwindow>
+			<anchored to="contentanchor" position="below" offset="0,30">
+				<bottom parent="" offset="-10" />
+			</anchored>
+		</subwindow>
+	</template>
+	<!-- attempting to get the host closing the window not to close it for the client, but not working -->
+	<template name="close_client">
+		<buttoncontrol>
+			<anchored height="24" width="24">
+				<top />
+				<right />
+			</anchored>
+			<icon normal="button_close" pressed="button_close_down" hover="button_close_hover" />
+			<script>
+				function onButtonPress()
+					window.close(false);
+				end
+			</script>
+		</buttoncontrol>
+	</template>
+	<template name="close_talis">
+		<close_client>
+			<anchored>
+				<top offset="24" />
+				<right offset="-12" />
+			</anchored>
+		</close_client>
+	</template>
+	<template name="seats_talis_host">
+		<windowlist name="seats">
+			<anchored to="headeranchor">
+				<top anchor="bottom" relation="relative" offset="45" />
+				<left offset="-30" />
+				<right offset="10" />
+				<bottom parent="" offset="-55" />
+			</anchored>
+			<datasource>.seats</datasource>
+			<class>talis_entry</class>
+			<empty font="list-empty" textres="ct_emptylist" />
+			<!-- <script file="ct/scripts/ct.lua" /> -->
+		</windowlist>
+	</template>
+	<template name="anchor_talis_main_header">
+		<genericcontrol name="headeranchor">
+			<!-- <anchored height="0">
+				<top parent="anchor_title_talis" anchor="bottom" offset="0,30" />
+				<left parent="" anchor="left" offset="20" />
+				<right parent="" anchor="right" offset="-30" />
+			</anchored> -->
+			<anchored>
+				<top />
+				<left offset="10" />
+				<right offset="-15" />
+			</anchored>
+			<disabled />
+		</genericcontrol>
+	</template>
+	
+	<!-- Player window -->
 	<windowclass name="talis_client">
 		<frame>partysheet</frame>
 		<placement>
@@ -64,11 +136,11 @@
 		<minimize>minimized_npc</minimize>
 		<nodelete/>
 		<sheetdata>
-			<windowtitlebar name="talisTitle">
+			<windowtitlebar name="title">
 				<resource>talisTableTitle</resource>
 			</windowtitlebar>
 			<anchor_title_talis name="contentanchor"/>
-			<!-- much of this can probably/should probably be based on windowclasses or windowlists, but I haven't been able to get those to work yet -->
+			
 			<label_charframetop name="card1">
 				<anchored height="125" position="belowleft" width="80">
 					<top parent="contentanchor" anchor="top" relation="relative" offset="75"/>
@@ -103,41 +175,47 @@
 			
 			<numberfield name="card1_value">
 				<anchored to="card1" position="insidetopleft" offset="25,90" width="30" height="25"/>
-				<!-- <frame name="fieldlight" offset="7,5,7,5"/> -->
 				<font>reference-b-large</font>
 			</numberfield>
 			<numberfield name="card2_value">
 				<anchored to="card2" position="insidetopleft" offset="25,90" width="30" height="25"/>
-				<!-- <frame name="fieldlight" offset="7,5,7,5"/> -->
 				<font>reference-b-large</font>
 			</numberfield>
 			<numberfield name="card3_value">
 				<anchored to="card3" position="insidetopleft" offset="25,90" width="30" height="25"/>
-				<!-- <frame name="fieldlight" offset="7,5,7,5"/> -->
 				<font>reference-b-large</font>
 			</numberfield>
 			
-			<talisbetnumber name="GP_already_bet">
+			<buttongroup_counter name="round1raise" source="bet.round1.raise">
+				<anchored to="card1" position="insidetopleft" offset="25,100"/>
+				<sourcefields><current>bet.round1.raise</current></sourcefields>
+				<values><maximum>1</maximum></values>
+			</buttongroup_counter>
+			
+			<talisbetnumber name="GP_already_bet" source="spentGP">
 				<anchored to="card1" offset="-5,165"/>
+				<readonly />
 			</talisbetnumber>
 			<label_gp>
 				<anchored to="GP_already_bet"/>
 			</label_gp>
-			<talisbetnumber name="SP_already_bet">
+			<talisbetnumber name="SP_already_bet" source="spentSP">
 				<anchored to="GP_already_bet" offset="33,0"/>
+				<readonly />
 			</talisbetnumber>
 			<label_sp>
 				<anchored to="SP_already_bet"/>
 			</label_sp>
-			<talisbetnumber name="CP_already_bet">
+			<talisbetnumber name="CP_already_bet" source="spentCP">
 				<anchored to="SP_already_bet" offset="32,0"/>
+				<readonly />
 			</talisbetnumber>
 			<label_cp>
 				<anchored to="CP_already_bet"/>
 			</label_cp>
 			<label_charfieldtop>
 				<anchored to="card1" offset="0,-160" width="90"/>
-				<static>Already Bet</static>
+				<static>Committed</static>
 				<center/>
 			</label_charfieldtop>
 			
@@ -151,19 +229,19 @@
 				<static>Hand Total</static>
 			</label_charfieldtop>
 
-			<talisbetnumber name="GP_in_pot" source="..potGP">
+			<talisbetnumber name="GP_in_pot" source="...pot.GP">
 				<anchored to="card3" offset="-5,165"/>
 			</talisbetnumber>
 			<label_gp>
 				<anchored to="GP_in_pot"/>
 			</label_gp>
-			<talisbetnumber name="SP_in_pot" source="..potSP">
+			<talisbetnumber name="SP_in_pot" source="...pot.SP">
 				<anchored to="GP_in_pot" offset="33,0"/>
 			</talisbetnumber>
 			<label_sp>
 				<anchored to="SP_in_pot"/>
 			</label_sp>
-			<talisbetnumber name="CP_in_pot" source="..potCP">
+			<talisbetnumber name="CP_in_pot" source="...pot.CP">
 				<anchored to="SP_in_pot" offset="32,0"/>
 			</talisbetnumber>
 			<label_cp>
@@ -174,52 +252,248 @@
 				<static>Total In Pot</static>
 				<center/>
 			</label_charfieldtop>
-			
 
-			<!-- 
-
-			<button_text>
-				<anchored to="card1" position="insidetopleft" offset="10,145" width="60" height="20" />
-				<state textres="talis_label_action" />
+			<button_text name="checkbutton">
+				<anchored to="contentanchor" position="belowleft" offset="10,445" width="80" height="20" />
+				<state textres="talis_label_check" />
 				<script>
 					function onButtonPress()
-
+						
 					end
 				</script>
-			</button_text> -->
+			</button_text>
+			<button_text name="callbutton">
+				<anchored to="checkbutton" position="right" offset="10" width="80" height="20" />
+				<state textres="talis_label_call" />
+				<script>
+					function onButtonPress()
+						
+					end
+				</script>
+			</button_text>
+			<button_text name="raisebutton">
+				<anchored to="callbutton" position="right" offset="10" width="80" height="20" />
+				<state textres="talis_label_raise" />
+				<script name="TalisRaise" file="scripts/utility_talis_raise.lua"/>
+			</button_text>
+			<button_text name="foldbutton">
+				<anchored to="raisebutton" position="right" offset="10" width="80" height="20" />
+				<state textres="talis_label_fold" />
+				<script>
+					function onButtonPress()
+						
+					end
+				</script>
+			</button_text>
+
 			
-			<close_charsheethelper/>
+			<close_talis/>
 			
 		</sheetdata>
 	</windowclass>
 
+
+	<!-- DM window -->
 	<windowclass name="talis_host">
-		<!-- none of this is ready yet, obviously -->
 		<frame>partysheet</frame>
 		<placement>
-			<size width="600" height="600"/>
+			<size width="800" height="500" />
 		</placement>
-		<noresize/>
-		<minimize>minimized_npc</minimize>
-		<nodelete/>
+		<sizelimits>
+			<minimum width="800" height="500" />
+			<dynamic />
+		</sizelimits>
+		<softclose />
+		<nodelete />
 		<sheetdata>
-			<windowtitlebar name="talisTitle">
+			<windowtitlebar name="title">
 				<resource>talisTableManagerTitle</resource>
 			</windowtitlebar>
 			
-			<anchor_title_talis name="contentanchor"/>
+			<anchor_title_talis name="contentanchor" />
+
+			<sub_talis name="main">
+				<class>talis_main</class>
+			</sub_talis>
+			<sub_talis name="rules">
+				<class>talis_rules</class>
+			</sub_talis>
+			<tabs_partysheet name="tabs">
+				<tab>
+					<icon>tab_notes</icon>
+					<subwindow>rules</subwindow>
+				</tab>
+				<tab>
+					<icon>tab_main</icon>
+					<subwindow>main</subwindow>
+				</tab>
+			</tabs_partysheet>
+
+			<resize_partysheet />
+			<close_partysheet />
+
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="talis_main">
+		<script file="scripts/talis_host_main.lua" />
+		<sheetdata>
 			
-			<label_charframetop name="talisSetup">
-				<anchored height="25">
-					<top parent="contentanchor" anchor="top" relation="relative" offset="75"/>
-					<left offset="50"/>
-					<right offset="-50"/>
+			<anchor_talis_main_header />
+			<!-- <anchor_title_talis name="headeranchor"/> -->
+			<genericcontrol name="leftanchor">
+				<anchored height="20" width="0">
+					<top parent="headeranchor" anchor="bottom" relation="relative" offset="8" />
+					<left />
 				</anchored>
-				<static>Talis Table Settings</static>
-			</label_charframetop>
+			</genericcontrol>
+			
+			<button_text name="addusers">
+				<anchored height="20" width="100" >
+					<top parent="headeranchor" anchor="bottom" relation="absolute" offset="8"/>
+					<left offset="30"/>
+				</anchored>
+				<state textres="talis_label_addusers" />
+				<script>
+					function onButtonPress()
+						
+					end
+				</script>
+			</button_text>			
+			<button_text name="startgame">
+				<anchored to="addusers" height="20" width="100" position="right" offset="25">
+					<!-- <top parent="addusers" anchor="right" offset="25"/>
+					<left offset="30"/> -->
+				</anchored>
+				<state textres="talis_label_startgame" />
+				<script>
+					function onButtonPress()
+						local aSeats = DB.getChildren("talis.seats");
+						for _,seatID in pairs(aSeats) do
+							sSeatID = DB.getPath(seatID);
+							local wWindowClient = Interface.openWindow("talis_client",sSeatID);
+							sUserName = DB.getValue(seatID,"player");
+							
+							local sRoundNumber = "round" .. DB.getValue("talis.currentround");
+							
+							local nAnteSP = DB.getValue("talis.tableRules.ante.SP");
+							DB.setValue(sSeatID .. ".spentSP","number",nAnteSP);
+							local nNewPotSP = DB.getValue("talis.pot.SP") + nAnteSP;
+							DB.setValue("talis.pot.SP","number",nNewPotSP);
+							
+							DB.setOwner(sSeatID,sUserName);
+							wWindowClient.share(sUserName);
+						end
+					end
+				</script>
+			</button_text>
+			
+			<button_iedit name="table_iedit">
+				<anchored>
+					<top parent="leftanchor" />
+					<right offset="-30" />
+				</anchored>
+				<target>list</target>
+				<script>
+					function onValueChanged()
+						local bEditMode = (getValue() == 1);
+						window.table_iadd_row.setVisible(bEditMode);
+						window.seats.update();
+					end
+				</script>
+			</button_iedit>
+			<button_iadd name="table_iadd_row">
+				<anchored to="table_iedit" position="lefthigh" offset="2,0" />
+				<tooltip textres="table_tooltip_rowadd" />
+				<script>
+					function onButtonPress()
+						window.addRow();
+					end
+				</script>
+			</button_iadd>
+			
+			<label_ps name="seatlabel">
+				<anchored to="headeranchor" position="insidetopleft" offset="20,40" width="25" />
+				<static>Seat</static>
+				<center />
+			</label_ps>
+			<label_ps name="playerlabel">
+				<anchored to="seatlabel" position="right" offset="10" width="85" />
+				<static>Player</static>
+				<center />
+			</label_ps>
+			<label_ps name="namelabel">
+				<anchored to="playerlabel" position="right" offset="10" width="85" />
+				<static>Name</static>
+				<center />
+			</label_ps>
+			<label_ps name="round1label">
+				<anchored to="namelabel" position="right" offset="10" width="85" />
+				<static>Round 1 Action</static>
+				<center />
+			</label_ps>
+			<label_ps name="round1raise">
+				<anchored to="round1label" position="right" offset="10" width="35" />
+				<static>Raise?</static>
+				<center />
+			</label_ps>
+			<label_ps name="round2label">
+				<anchored to="round1raise" position="right" offset="10" width="85" />
+				<static>Round 2 Action</static>
+				<center />
+			</label_ps>
+			<label_ps name="round2raise">
+				<anchored to="round2label" position="right" offset="10" width="45" />
+				<static>Raise?</static>
+				<center />
+			</label_ps>
+			<label_ps name="round3label">
+				<anchored to="round2raise" position="right" offset="10" width="85" />
+				<static>Round 3 Action</static>
+				<center />
+			</label_ps>
+			<label_ps name="round3raise">
+				<anchored to="round3label" position="right" offset="10" width="45" />
+				<static>Raise?</static>
+				<center />
+			</label_ps>
+			
+			<!-- <seats_talis_host /> -->
+			<windowlist name="seats">
+				<anchored><!-- changes from columnanchor -->
+					<top parent="headeranchor" anchor="bottom" relation="relative" offset="35" />
+					<left offset="5" />
+					<right offset="-5" />
+				</anchored>
+				<datasource>.seats</datasource>
+				<class>talis_entry</class>
+				<noscroll />
+				<sortby><control>fromrange</control></sortby>
+				<child />
+				<child><backcolor>1A40301E</backcolor></child>
+				<script>
+					function onListChanged()
+						update();
+					end
+					function update()
+						local bEditMode = (window.table_iedit.getValue() == 1);
+						for _,w in ipairs(getWindows()) do
+							w.idelete.setVisibility(bEditMode);
+						end
+					end
+				</script>
+			</windowlist>
+		</sheetdata>
+	</windowclass>	
+	
+	<windowclass name="talis_rules">
+		
+		<sheetdata>
+			
+			<anchor_talis_main_header />
 			
 			<talisbetnumber name="anteGP" source="tableRules.ante.GP">
-				<anchored to="talisSetup" offset="0,50"/>
+				<anchored to="headeranchor" offset="20,20"/>
 			</talisbetnumber>
 			<label_gp>
 				<anchored to="anteGP"/>
@@ -238,13 +512,13 @@
 				<anchored to="anteCP"/>
 			</label_cp>
 			<label_charfieldtop>
-				<anchored to="talisSetup"  position="insidetopleft" offset="0,30" width="90"/>
+				<anchored to="headeranchor"  position="insidetopleft" offset="20,0" width="90"/>
 				<static>Table Ante</static>
 				<center/>
 			</label_charfieldtop>
-
+			
 			<talisbetnumber name="round1GP" source="tableRules.round1bet.GP">
-				<anchored to="talisSetup" offset="125,50"/>
+				<anchored to="headeranchor" offset="145,20"/>
 			</talisbetnumber>
 			<label_gp>
 				<anchored to="round1GP"/>
@@ -264,13 +538,13 @@
 				<anchored to="round1CP"/>
 			</label_cp>
 			<label_charfieldtop>
-				<anchored to="talisSetup"  position="insidetopleft" offset="125,30" width="90"/>
+				<anchored to="headeranchor"  position="insidetopleft" offset="145,0" width="90"/>
 				<static>Round 1 Bets</static>
 				<center/>
 			</label_charfieldtop>
 			
 			<talisbetnumber name="round2GP" source="tableRules.round2bet.GP">
-				<anchored to="talisSetup" offset="250,50"/>
+				<anchored to="headeranchor" offset="270,20"/>
 				<default>1</default>
 			</talisbetnumber>
 			<label_gp>
@@ -290,13 +564,13 @@
 				<anchored to="round2CP"/>
 			</label_cp>
 			<label_charfieldtop>
-				<anchored to="talisSetup"  position="insidetopleft" offset="250,30" width="90"/>
+				<anchored to="headeranchor"  position="insidetopleft" offset="270,0" width="90"/>
 				<static>Round 2 Bets</static>
 				<center/>
 			</label_charfieldtop>
 
 			<talisbetnumber name="round3GP" source="tableRules.round3bet.GP">
-				<anchored to="talisSetup" offset="375,50"/>
+				<anchored to="headeranchor" offset="395,20"/>
 				<default>5</default>
 			</talisbetnumber>
 			<label_gp>
@@ -315,13 +589,143 @@
 				<anchored to="round3CP"/>
 			</label_cp>
 			<label_charfieldtop>
-				<anchored to="talisSetup"  position="insidetopleft" offset="375,30" width="90"/>
+				<anchored to="headeranchor"  position="insidetopleft" offset="395,0" width="90"/>
 				<static>Round 3 Bets</static>
 				<center/>
 			</label_charfieldtop>
-
-			<close_charsheethelper/>
 			
+			<button_text>
+				<anchored to="headeranchor" position="insidetopleft" offset="10,145" width="60" height="20" />
+				<state textres="talis_label_action" />
+				<script>
+					function onButtonPress()
+						local aList = ConnectionManagerADND.getUserLoggedInList();
+						for _,name in pairs(aList) do
+							local sUserNode = "talis.seats." .. name;
+							local wWindowClient = Interface.openWindow("talis_client",sUserNode);
+
+							local nAnteSP = DB.getValue("talis.tableRules.ante.SP");
+							DB.setValue(sUserNode .. ".spentSP","number",nAnteSP);
+							local nNewPotSP = DB.getValue("talis.pot.SP") + nAnteSP;
+							DB.setValue("talis.pot.SP","number",nNewPotSP);
+
+							DB.setOwner(sUserNode,name);
+							wWindowClient.share(name);
+						end
+					end
+				</script>
+			</button_text>
+			
+		</sheetdata>
+	</windowclass>
+	
+	<windowclass name="talis_entry">
+		<margins control="0,0,0,5" />
+		<sizelimits>
+			<minimum height="45" />
+		</sizelimits>
+		<sheetdata>
+			
+			<genericcontrol name="rightanchor">
+				<anchored height="0" width="0">
+					<top />
+					<right />
+				</anchored>
+			</genericcontrol>
+
+			<button_idelete name="idelete">
+				<anchored>
+					<top offset="2" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			
+			<talisbetnumber name="seatnumber">
+				<bounds>28,10,25,25</bounds>
+				<hideonvalue>0</hideonvalue>
+				<delaykeyupdate />
+				<nodrag />
+			</talisbetnumber>
+			<string_tableresult name="player">
+				<anchored to="seatnumber" position="right" width="85" offset="10"/>
+				<center />
+			</string_tableresult>
+			<string_tableresult name="name">
+				<anchored to="player" position="right" width="85" offset="10"/>
+				<center />
+			</string_tableresult>
+			<talisbetnumber name="round1GP" source="bet.round1.GP">
+				<anchored to="name" position="right" width="25" offset="10"/>
+			</talisbetnumber>
+			<label_gp>
+				<anchored to="round1GP"/>
+			</label_gp>
+			<talisbetnumber name="round1SP" source="bet.round1.SP">
+				<anchored to="round1GP" position="right" width="25" offset="7"/>
+			</talisbetnumber>
+			<label_sp>
+				<anchored to="round1SP"/>
+			</label_sp>
+			<talisbetnumber name="round1CP" source="bet.round1.CP">
+				<anchored to="round1SP" position="right" width="25" offset="7"/>
+			</talisbetnumber>
+			<label_cp>
+				<anchored to="round1CP"/>
+			</label_cp>
+			<buttongroup_counter name="round1raise">
+				<anchored to="round1CP" position="right" width="25" offset="15"/>
+				<sourcefields><current>bet.round1.raise</current></sourcefields>
+				<values><maximum>1</maximum></values>
+			</buttongroup_counter>
+			
+			<talisbetnumber name="round2GP" source="bet.round2.GP">
+				<anchored to="round1raise" position="right" width="25" offset="30"/>
+			</talisbetnumber>
+			<label_gp>
+				<anchored to="round2GP"/>
+			</label_gp>
+			<talisbetnumber name="round2SP" source="bet.round2.SP">
+				<anchored to="round2GP" position="right" width="25" offset="7"/>
+			</talisbetnumber>
+			<label_sp>
+				<anchored to="round2SP"/>
+			</label_sp>
+			<talisbetnumber name="round2CP" source="bet.round2.CP">
+				<anchored to="round2SP" position="right" width="25" offset="7"/>
+			</talisbetnumber>
+			<label_cp>
+				<anchored to="round2CP"/>
+			</label_cp>
+			<buttongroup_counter name="round2raise">
+				<anchored to="round2CP" position="right" width="25" offset="15"/>
+				<sourcefields><current>rd2raise</current></sourcefields>
+				<values><maximum>1</maximum></values>
+			</buttongroup_counter>
+
+			<talisbetnumber name="round3GP" source="bet.round3.GP">
+				<anchored to="round2raise" position="right" width="25" offset="30"/>
+			</talisbetnumber>
+			<label_gp>
+				<anchored to="round3GP"/>
+			</label_gp>
+			<talisbetnumber name="round3SP" source="bet.round3.SP">
+				<anchored to="round3GP" position="right" width="25" offset="7"/>
+			</talisbetnumber>
+			<label_sp>
+				<anchored to="round3SP"/>
+			</label_sp>
+			<talisbetnumber name="round3CP" source="bet.round3.CP">
+				<anchored to="round3SP" position="right" width="25" offset="7"/>
+			</talisbetnumber>
+			<label_cp>
+				<anchored to="round3CP"/>
+			</label_cp>
+			<buttongroup_counter name="round3raise">
+				<anchored to="round3CP" position="right" width="25" offset="15"/>
+				<sourcefields><current>rd3raise</current></sourcefields>
+				<values><maximum>1</maximum></values>
+			</buttongroup_counter>
+
 		</sheetdata>
 	</windowclass>
 

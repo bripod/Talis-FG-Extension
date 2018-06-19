@@ -19,17 +19,14 @@
 		text="Talis Extension v0.1\rCoreRPG/5E version for Fantasy Grounds\r--by bripod 2018.05.21"
 		font="emotefont"/>
 	<base>
-
-		<string name="talisTableTitle">How about a game of Talis?</string>
-		<string name="talisTableManagerTitle">Talis Table Manager</string>
-		<string name="talis_label_action">Bet</string>
 		
 		<script name="LibraryDataTalis" file="scripts/data_library_talis.lua"/>
 		<script name="ConnectionManagerADND" file="scripts/manager_connection_adnd.lua"/>
 		<script name="TalisManager" file="scripts/manager_action_talis.lua"/>	
 		
-
+		<includefile source="talis_strings.xml"/>
 		<includefile source="talis.xml"/>
+		
 
 	</base>
 

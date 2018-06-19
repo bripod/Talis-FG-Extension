@@ -20,15 +20,18 @@ function onDragStart(button, x, y, draginfo)
 end
 					
 function onButtonPress()
-	local sTalisUserNode = "talis." .. User.getUsername() .. ".";
---	Debug.chat(sTalisUserNode);
+--	local talisUserNode = window.getDatabaseNode();
+	local sTalisUserNode = DB.getPath(window.getDatabaseNode());
+--	Debug.chat("sTalisUserNode: ",sTalisUserNode);
+--	Debug.chat("talisUserNode: ",talisUserNode);
 	local rTalisRoll = {};
 	if getName() == "card1_button" then
-		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. "card1_value");
+		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. ".card1_value");
+		Debug.chat(rTalisRoll);
 	elseif getName() == "card2_button" then
-		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. "card2_value");
+		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. ".card2_value");
 	else
-		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. "card3_value");
+		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. ".card3_value");
 	end	
 	sDie = getDie();
 	return action(draginfo, sDie, rTalisRoll);
