@@ -15,10 +15,7 @@ function processTalis(sCommand, sParams)
 		
 		-- create "talis" node in DB if not present, otherwise, clear child nodes from "talis" node
 		if DB.findNode("talis") then
---			DB.deleteChild("talis.seatsBrian");
 			DB.deleteChildren("talis.seats");
---			DB.deleteNode("talis.list");
---			DB.deleteNode("talis.tableRows");
 			DB.findNode("talis.pot").setPublic(true);
 			DB.setValue("talis.pot.CP","number",0);
 			DB.setValue("talis.pot.SP","number",0);

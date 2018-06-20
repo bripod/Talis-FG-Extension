@@ -77,8 +77,8 @@
 	<template name="close_client">
 		<buttoncontrol>
 			<anchored height="24" width="24">
-				<top />
-				<right />
+				<top offset="24"/>
+				<right offset="-12"/>
 			</anchored>
 			<icon normal="button_close" pressed="button_close_down" hover="button_close_hover" />
 			<script>
@@ -186,11 +186,6 @@
 				<font>reference-b-large</font>
 			</numberfield>
 			
-			<buttongroup_counter name="round1raise" source="bet.round1.raise">
-				<anchored to="card1" position="insidetopleft" offset="25,100"/>
-				<sourcefields><current>bet.round1.raise</current></sourcefields>
-				<values><maximum>1</maximum></values>
-			</buttongroup_counter>
 			
 			<talisbetnumber name="GP_already_bet" source="spentGP">
 				<anchored to="card1" offset="-5,165"/>
@@ -256,34 +251,22 @@
 			<button_text name="checkbutton">
 				<anchored to="contentanchor" position="belowleft" offset="10,445" width="80" height="20" />
 				<state textres="talis_label_check" />
-				<script>
-					function onButtonPress()
-						
-					end
-				</script>
+				<script name="TalisRaise" file="scripts/utility_talis_raise.lua"/>
 			</button_text>
 			<button_text name="callbutton">
-				<anchored to="checkbutton" position="right" offset="10" width="80" height="20" />
+				<anchored to="contentanchor" position="belowleft" offset="120,445" width="80" height="20" />
 				<state textres="talis_label_call" />
-				<script>
-					function onButtonPress()
-						
-					end
-				</script>
+				<script name="TalisRaise" file="scripts/utility_talis_raise.lua"/>
 			</button_text>
 			<button_text name="raisebutton">
-				<anchored to="callbutton" position="right" offset="10" width="80" height="20" />
+				<anchored to="contentanchor" position="belowleft" offset="230,445" width="80" height="20" />
 				<state textres="talis_label_raise" />
 				<script name="TalisRaise" file="scripts/utility_talis_raise.lua"/>
 			</button_text>
 			<button_text name="foldbutton">
-				<anchored to="raisebutton" position="right" offset="10" width="80" height="20" />
+				<anchored to="contentanchor" position="belowleft" offset="340,445" width="80" height="20" />
 				<state textres="talis_label_fold" />
-				<script>
-					function onButtonPress()
-						
-					end
-				</script>
+				<script name="TalisRaise" file="scripts/utility_talis_raise.lua"/>
 			</button_text>
 
 			
@@ -361,7 +344,7 @@
 				</script>
 			</button_text>			
 			<button_text name="startgame">
-				<anchored to="addusers" height="20" width="100" position="right" offset="25">
+				<anchored to="addusers" width="100" position="right" offset="25">
 					<!-- <top parent="addusers" anchor="right" offset="25"/>
 					<left offset="30"/> -->
 				</anchored>
@@ -383,6 +366,24 @@
 							
 							DB.setOwner(sSeatID,sUserName);
 							wWindowClient.share(sUserName);
+						end
+					end
+				</script>
+			</button_text>
+			
+			<button_text name="nextround">
+				<anchored to="startgame" width="100" position="right" offset="25">
+					<!-- <top parent="addusers" anchor="right" offset="25"/>
+					<left offset="30"/> -->
+				</anchored>
+				<state textres="talis_label_nextround" />
+				<script>
+					function onButtonPress()
+						local nRound = DB.getValue("talis.currentround") + 1;
+						if nRound == 4 then
+						
+						else
+							DB.setValue("talis.currentround","number",nRound);
 						end
 					end
 				</script>
@@ -458,9 +459,9 @@
 				<center />
 			</label_ps>
 			
-			<!-- <seats_talis_host /> -->
+			
 			<windowlist name="seats">
-				<anchored><!-- changes from columnanchor -->
+				<anchored>
 					<top parent="headeranchor" anchor="bottom" relation="relative" offset="35" />
 					<left offset="5" />
 					<right offset="-5" />
@@ -646,6 +647,12 @@
 				<delaykeyupdate />
 				<nodrag />
 			</talisbetnumber>
+			<!-- <buttonfield name="seatnumber">
+				<bounds>28,10,25,25</bounds>
+				<state icon="ct_passive" />
+				<state icon="ct_active" />
+				<script file="ct/scripts/ct_active.lua" />
+			</buttonfield> -->
 			<string_tableresult name="player">
 				<anchored to="seatnumber" position="right" width="85" offset="10"/>
 				<center />

@@ -17,7 +17,7 @@ function getRoll(rActor, sDie, rTalisRoll)
 	rRoll.aDice = { sDie };
 	rRoll.sDesc = "Talis!";
 	-- bSecret is for GM rolls, bTower is for player rolls, but neither of them work (die is still visible)
-	rRoll.bSecret = true;
+	--rRoll.bSecret = true;
 	rRoll.bTower = true;
 	rRoll.sNodeTalis = rTalisRoll.nodeTalis.getNodeName();
 	return rRoll;
@@ -37,7 +37,6 @@ function onRoll(rSource, rTarget, rRoll)
 	
 	DB.setValue(sNodeTalis,"number",talis_result);
 
-	-- have not put the hand_total control back in yet ...
 	local sTalisUser = DB.getParent(sNodeTalis).getPath();
 	local nHandTotal = DB.getValue(sTalisUser .. ".card1_value") + DB.getValue(sTalisUser .. ".card2_value") + DB.getValue(sTalisUser .. ".card3_value");
 
