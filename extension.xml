@@ -23,6 +23,8 @@
 		<script name="LibraryDataTalis" file="scripts/data_library_talis.lua"/>
 		<script name="ConnectionManagerADND" file="scripts/manager_connection_adnd.lua"/>
 		<script name="TalisManager" file="scripts/manager_action_talis.lua"/>	
+		<script name="TalisBet" file="scripts/utility_talis_raise.lua"/>	
+		<script name="TalisGM" file="scripts/manager_gm_talis.lua"/>	
 		
 		<includefile source="talis_strings.xml"/>
 		<includefile source="talis.xml"/>
