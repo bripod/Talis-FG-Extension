@@ -21,6 +21,9 @@ end
 					
 function onButtonPress()
 	local sTalisUserNode = DB.getPath(window.getDatabaseNode());
+	if DB.getValue(sTalisUserNode .. ".folded") == 1 then
+		return;	
+	end
 	local rTalisRoll = {};
 	if getName() == "card1_button" then
 		rTalisRoll.nodeTalis = DB.findNode(sTalisUserNode .. ".card1_value");

@@ -580,11 +580,11 @@
 						DB.setValue("talis.tableRules.round1bet.SP","number",2);
 						DB.setValue("talis.tableRules.round1bet.CP","number",5);
 						DB.setValue("talis.tableRules.round2bet.GP","number",0);
-						DB.setValue("talis.tableRules.round2bet.SP","number",6);
-						DB.setValue("talis.tableRules.round2bet.CP","number",3);
+						DB.setValue("talis.tableRules.round2bet.SP","number",5);
+						DB.setValue("talis.tableRules.round2bet.CP","number",0);
 						DB.setValue("talis.tableRules.round3bet.GP","number",1);
-						DB.setValue("talis.tableRules.round3bet.SP","number",8);
-						DB.setValue("talis.tableRules.round3bet.CP","number",9);
+						DB.setValue("talis.tableRules.round3bet.SP","number",0);
+						DB.setValue("talis.tableRules.round3bet.CP","number",0);
 					end
 				</script>
 			</button_text>
@@ -597,14 +597,14 @@
 						DB.setValue("talis.tableRules.ante.SP","number",2);
 						DB.setValue("talis.tableRules.ante.CP","number",5);
 						DB.setValue("talis.tableRules.round1bet.GP","number",0);
-						DB.setValue("talis.tableRules.round1bet.SP","number",6);
-						DB.setValue("talis.tableRules.round1bet.CP","number",3);
+						DB.setValue("talis.tableRules.round1bet.SP","number",7);
+						DB.setValue("talis.tableRules.round1bet.CP","number",5);
 						DB.setValue("talis.tableRules.round2bet.GP","number",1);
-						DB.setValue("talis.tableRules.round2bet.SP","number",2);
-						DB.setValue("talis.tableRules.round2bet.CP","number",6);
-						DB.setValue("talis.tableRules.round3bet.GP","number",3);
-						DB.setValue("talis.tableRules.round3bet.SP","number",7);
-						DB.setValue("talis.tableRules.round3bet.CP","number",8);
+						DB.setValue("talis.tableRules.round2bet.SP","number",5);
+						DB.setValue("talis.tableRules.round2bet.CP","number",0);
+						DB.setValue("talis.tableRules.round3bet.GP","number",4);
+						DB.setValue("talis.tableRules.round3bet.SP","number",5);
+						DB.setValue("talis.tableRules.round3bet.CP","number",0);
 					end
 				</script>
 			</button_text>
@@ -614,16 +614,16 @@
 				<script>
 					function onButtonPress()
 						DB.setValue("talis.tableRules.ante.GP","number",0);
-						DB.setValue("talis.tableRules.ante.SP","number",6);
-						DB.setValue("talis.tableRules.ante.CP","number",3);
-						DB.setValue("talis.tableRules.round1bet.GP","number",1);
-						DB.setValue("talis.tableRules.round1bet.SP","number",6);
+						DB.setValue("talis.tableRules.ante.SP","number",7);
+						DB.setValue("talis.tableRules.ante.CP","number",5);
+						DB.setValue("talis.tableRules.round1bet.GP","number",2);
+						DB.setValue("talis.tableRules.round1bet.SP","number",2);
 						DB.setValue("talis.tableRules.round1bet.CP","number",5);
-						DB.setValue("talis.tableRules.round2bet.GP","number",3);
-						DB.setValue("talis.tableRules.round2bet.SP","number",3);
+						DB.setValue("talis.tableRules.round2bet.GP","number",4);
+						DB.setValue("talis.tableRules.round2bet.SP","number",5);
 						DB.setValue("talis.tableRules.round2bet.CP","number",0);
 						DB.setValue("talis.tableRules.round3bet.GP","number",9);
-						DB.setValue("talis.tableRules.round3bet.SP","number",9);
+						DB.setValue("talis.tableRules.round3bet.SP","number",0);
 						DB.setValue("talis.tableRules.round3bet.CP","number",0);
 					end
 				</script>

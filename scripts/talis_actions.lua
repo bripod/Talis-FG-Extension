@@ -125,7 +125,7 @@ function nextPlayer(bCheck)
 		sChatText = sChatText .. " or Fold";
 		rMessage.text = sChatText;
 		rMessage.mode = "ooc";
-		rMessage.font = "whisperfont";
+		rMessage.font = "emote";
 		Comm.deliverChatMessage(rMessage);
 	else
 		DB.setValue(sNodeActive .. ".active","number",0)
@@ -161,9 +161,10 @@ function startGame()
 		wWindowClient.share(sUserName);
 	end
 	local rMessage = {};
-	local sChatText = "A Game of Talis";
+	local sChatText = "~= A Game of Talis =~";
 	rMessage.text = sChatText;
 	rMessage.mode = "story";
+	rMessage.font = "reference-title";
 	Comm.deliverChatMessage(rMessage);
 	local sPlayers = "Players: ";
 	if #aEntries > 0 then
@@ -237,9 +238,31 @@ function nextRound()
 		local rMessage = {};
 		local sChatText = "All bets have been placed";
 		rMessage.text = sChatText;
-		rMessage.sender = "Dealer";
-		rMessage.mode = "chat";
+		--rMessage.sender = "Dealer";
+		rMessage.mode = "ooc";
+		rMessage.font = "whisperfont";
 		Comm.deliverChatMessage(rMessage);
+		
+		
+		local sPlayers = "Remaining Players: ";
+		local aEntries = getSortedSeatList(false);
+		if #aEntries > 0 then
+			for i = 1,#aEntries do
+				local sSeatName = DB.getPath(aEntries[i]);	
+				sPlayers = sPlayers .. DB.getValue(sSeatName .. ".name");
+				if i < #aEntries and i+1 == #aEntries then
+					sPlayers = sPlayers .. " & "
+				elseif i < #aEntries then
+					sPlayers = sPlayers .. ", "
+				end
+			end
+		end
+		rMessage.text = sPlayers;
+		rMessage.mode = "ooc";
+		rMessage.font = "whisperfont"; --narratorfont
+		Comm.deliverChatMessage(rMessage);
+		
+		
 		startRoundMessage(nRound);
 	end
 	-- reset active player to first player in sorted list
@@ -303,8 +326,9 @@ function startRoundMessage(nRound)
 	end
 	local sChatText = sCard .. ": Bets are " .. sBet;
 	rMessage.text = sChatText;
-	rMessage.sender = "Dealer";
-	rMessage.mode = "chat";
+	--rMessage.sender = "Dealer";
+	rMessage.mode = "ooc";
+	rMessage.font = "whisperfont";
 	Comm.deliverChatMessage(rMessage);
 	local aEntries = getSortedSeatList(false);
 	local sFirstSeat = DB.getPath(aEntries[1]);
@@ -312,7 +336,7 @@ function startRoundMessage(nRound)
 	rMessage.text = sChatText;
 	rMessage.sender = "";
 	rMessage.mode = "ooc";
-	rMessage.font = "whisperfont";
+	rMessage.font = "emote";
 	Comm.deliverChatMessage(rMessage);
 	
 end
@@ -390,7 +414,11 @@ end
 
 
 function call(sTalisUserNode,sRoundNumber)
-	if DB.getValue(sTalisUserNode .. ".active") ~= 1 then
+	local currentBetCP = DB.getValue("talis.pot.currentbetCP");
+	local currentBetSP = DB.getValue("talis.pot.currentbetSP");
+	local currentBetGP = DB.getValue("talis.pot.currentbetGP");
+	
+	if DB.getValue(sTalisUserNode .. ".active") ~= 1 or currentBetCP + currentBetSP + currentBetGP == 0 then
 		return
 	end
 	local sRoundNumber = "round" .. DB.getValue("talis.currentround");
@@ -434,16 +462,16 @@ function raise(sTalisUserNode,sRoundNumber)
 		rMessage.text = sChatText;
 		Comm.deliverChatMessage(rMessage);
 		nextPlayer();
-	else
-		local sChatText = DB.getValue(sTalisUserNode .. ".name") .. " has already raised this round!"
-		rMessage.text = sChatText;
-		Comm.deliverChatMessage(rMessage);
+--	else
+--		local sChatText = DB.getValue(sTalisUserNode .. ".name") .. " has already raised this round!"
+--		rMessage.text = sChatText;
+--		Comm.deliverChatMessage(rMessage);
 	end
 end
 
 
 function fold(sTalisUserNode,sRoundNumber)
-	if DB.getValue(sTalisUserNode .. ".active") ~= 1 then
+	if DB.getValue(sTalisUserNode .. ".active") ~= 1 or DB.getValue(sTalisUserNode .. ".folded") == 1 then
 		return
 	end
 	local rMessage = {};
