@@ -120,7 +120,11 @@ function nextPlayer(bCheck)
 			sChatText = sChatText .. ": Call";
 		end
 		if playerBetGP + playerBetSP + playerBetCP <= currentBetGP + currentBetSP + currentBetCP and DB.getValue(sNodeNext .. sNodeNextBets .. ".raise") ~= 1 then
-			sChatText = sChatText .. ", Raise";
+			if currentBetGP + currentBetSP + currentBetCP == 0 then 
+				sChatText = sChatText .. ", Bet";
+			else
+				sChatText = sChatText .. ", Raise";
+			end
 		end
 		sChatText = sChatText .. " or Fold";
 		rMessage.text = sChatText;
@@ -205,7 +209,7 @@ function endGame()
 			end
 		end
 	end
-	if #aEntries > 0 then
+	if #aEntries > 1 then
 		for i = 1,#aEntries do
 			local sSeatName = DB.getPath(aEntries[i]);	
 			sShowdown = sShowdown .. DB.getValue(sSeatName .. ".name") .. " has " .. DB.getValue(sSeatName .. ".hand_total");
