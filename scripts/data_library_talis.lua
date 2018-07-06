@@ -15,8 +15,10 @@ function processTalis(sCommand, sParams)
 		
 		-- create "talis" node in DB if not present, otherwise, clear child nodes from "talis" node
 		if DB.findNode("talis") then
+			DB.setPublic("talis",true);
 			DB.deleteChildren("talis.seats");
-			DB.findNode("talis.pot").setPublic(true);
+			DB.findNode("talis.pot");
+--			DB.setPublic("talis.pot",true);
 			DB.setValue("talis.pot.CP","number",0);
 			DB.setValue("talis.pot.SP","number",0);
 			DB.setValue("talis.pot.GP","number",0);
@@ -24,14 +26,16 @@ function processTalis(sCommand, sParams)
 			DB.setValue("talis.pot.currentbetSP","number",0);
 			DB.setValue("talis.pot.currentbetGP","number",0);
 			DB.setValue("talis.currentround","number",1);
+			DB.setPublic("talis.currentround",true);
+			DB.createNode("talis.tableRules").setPublic(true);
 		else 
-			DB.createNode("talis");
+			DB.createNode("talis").setPublic(true);
 			DB.createNode("talis.seats");
 			DB.createNode("talis.pot").setPublic(true);
 			DB.createNode("talis.pot.CP");
 			DB.createNode("talis.pot.SP");
 			DB.createNode("talis.pot.GP");
-			DB.createNode("talis.tableRules").setPublic(false);
+			DB.createNode("talis.tableRules").setPublic(true);
 		end
 		
 		-- create the Host window, not shared with users

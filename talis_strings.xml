@@ -14,6 +14,10 @@
 	<string name="talis_label_addusers">Add All Players</string>
 	<string name="talis_label_startgame">Start Game</string>
 	<string name="talis_label_nextround">Next Round</string>
+	<string name="talis_label_newround">New Round</string>
+	<string name="talis_label_stakes_low">Low Stakes</string>
+	<string name="talis_label_stakes_medium">Medium Stakes</string>
+	<string name="talis_label_stakes_high">High Stakes</string>
 	<string name="talis_label_check">Check</string>
 	<string name="talis_label_call">Call</string>
 	<string name="talis_label_raise">Raise</string>

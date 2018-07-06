@@ -23,26 +23,21 @@ function getRoll(rActor, sDie, rTalisRoll)
 	return rRoll;
 end
 
+
 -- Start the action process
 function performRoll(draginfo, rActor, sDie, rTalisRoll)
 	local rRoll = getRoll(rActor, sDie, rTalisRoll);
 	ActionsManager.performAction(draginfo, rActor, rRoll);	
 end
 
-function onRoll(rSource, rTarget, rRoll)
 
+function onRoll(rSource, rTarget, rRoll)
+	-- update the current card value
 	local sNodeTalis = rRoll.sNodeTalis;
 	local talis_result = rRoll.aDice[1].result;
-	
-	
 	DB.setValue(sNodeTalis,"number",talis_result);
-
+	-- update the total hand value
 	local sTalisUser = DB.getParent(sNodeTalis).getPath();
 	local nHandTotal = DB.getValue(sTalisUser .. ".card1_value") + DB.getValue(sTalisUser .. ".card2_value") + DB.getValue(sTalisUser .. ".card3_value");
-
 	DB.setValue(sTalisUser .. ".hand_total","number",nHandTotal);
-
--- these next two lines create & output the chat message as a GM secret roll - probably not necessary
---	local rMessage = ActionsManager.createActionMessage(rSource, rRoll);
---	Comm.deliverChatMessage(rMessage);
 end

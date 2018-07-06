@@ -130,7 +130,7 @@
 	<windowclass name="talis_client">
 		<frame>partysheet</frame>
 		<placement>
-			<size width="500" height="600"/>
+			<size width="500" height="450"/>
 		</placement>
 		<noresize/>
 		<minimize>minimized_npc</minimize>
@@ -141,14 +141,10 @@
 			</windowtitlebar>
 			<anchor_title_talis name="contentanchor"/>
 			
-			<string_tableresult name="name">
-				<anchored to="contentanchor" position="belowleft" width="35" offset="150"/>
-				<center />
-			</string_tableresult>
 			
 			<label_charframetop name="card1">
 				<anchored height="125" position="belowleft" width="80">
-					<top parent="contentanchor" anchor="top" relation="relative" offset="75"/>
+					<top parent="contentanchor" anchor="top" relation="relative" offset="50"/>
 					<left offset="75"/>
 				</anchored>
 				<font>reference-b-large</font>
@@ -165,6 +161,12 @@
 				<static>1d4</static>
 			</label_charframetop>
 			
+			<string_tableresult name="name">
+				<anchored to="contentanchor" position="belowleft" width="80" offset="180"/>
+				<center />
+				<font>reference-b-large</font>
+			</string_tableresult>
+
 			<button_roll name="card1_button">
 				<anchored to="card1" position="insidetopleft" offset="25,15" width="30" height="30"/>
 				<script name="TalisRoll" file="scripts/utility_talis_roll.lua"/>
@@ -253,26 +255,26 @@
 				<center/>
 			</label_charfieldtop>
 
-			<button_text name="checkbutton">
-				<anchored to="contentanchor" position="belowleft" offset="10,445" width="80" height="20" />
+			<button_text_large name="checkbutton">
+				<anchored to="card1" position="below" offset="0,110" width="80" height="20" />
 				<state textres="talis_label_check" />
-				<script name="TalisRaise" file="scripts/utility_talis_raise.lua"/>
-			</button_text>
-			<button_text name="callbutton">
-				<anchored to="contentanchor" position="belowleft" offset="120,445" width="80" height="20" />
+				<script name="TalisAction" file="scripts/talis_actions.lua"/>
+			</button_text_large>
+			<button_text_large name="callbutton">
+				<anchored to="card1" position="belowleft" offset="0,140" width="80" height="20" />
 				<state textres="talis_label_call" />
-				<script name="TalisRaise" file="scripts/utility_talis_raise.lua"/>
-			</button_text>
-			<button_text name="raisebutton">
-				<anchored to="contentanchor" position="belowleft" offset="230,445" width="80" height="20" />
+				<script name="TalisAction" file="scripts/talis_actions.lua"/>
+			</button_text_large>
+			<button_text_large name="raisebutton">
+				<anchored to="card2" position="belowleft" offset="0,120" width="80" height="20" />
 				<state textres="talis_label_raise" />
-				<script name="TalisRaise" file="scripts/utility_talis_raise.lua"/>
-			</button_text>
-			<button_text name="foldbutton">
-				<anchored to="contentanchor" position="belowleft" offset="340,445" width="80" height="20" />
+				<script name="TalisAction" file="scripts/talis_actions.lua"/>
+			</button_text_large>
+			<button_text_large name="foldbutton">
+				<anchored to="card3" position="belowleft" offset="0,120" width="80" height="20" />
 				<state textres="talis_label_fold" />
-				<script name="TalisRaise" file="scripts/utility_talis_raise.lua"/>
-			</button_text>
+				<script name="TalisAction" file="scripts/talis_actions.lua"/>
+			</button_text_large>
 
 			
 			<close_talis/>
@@ -328,7 +330,7 @@
 		<sheetdata>
 			
 			<anchor_talis_main_header />
-			<!-- <anchor_title_talis name="headeranchor"/> -->
+
 			<genericcontrol name="leftanchor">
 				<anchored height="20" width="0">
 					<top parent="headeranchor" anchor="bottom" relation="relative" offset="8" />
@@ -336,37 +338,29 @@
 				</anchored>
 			</genericcontrol>
 			
-			<!-- <button_text name="addusers">
-				<anchored height="20" width="100" >
-					<top parent="headeranchor" anchor="bottom" relation="absolute" offset="8"/>
-					<left offset="30"/>
-				</anchored>
-				<state textres="talis_label_addusers" />
-				<script>
-					function onButtonPress()
-
-					end
-				</script>
-			</button_text>	 -->		
+			<!-- control buttons -->
 			<button_text name="startgame">
 				<anchored height="20" width="100" >
 					<top parent="headeranchor" anchor="bottom" relation="absolute" offset="8"/>
 					<left offset="30"/>
 				</anchored>
-				<!-- <anchored to="addusers" width="100" position="right" offset="25"/> -->
 				<state textres="talis_label_startgame" />
-				<script file="scripts/manager_gm_talis.lua" />
+				<script file="scripts/talis_actions.lua" />
 			</button_text>
-			
 			<button_text name="nextround">
 				<anchored to="startgame" width="100" position="right" offset="25">
-					<!-- <top parent="addusers" anchor="right" offset="25"/>
-					<left offset="30"/> -->
 				</anchored>
 				<state textres="talis_label_nextround" />
-				<script file="scripts/manager_gm_talis.lua"/>
+				<script file="scripts/talis_actions.lua"/>
+			</button_text>
+			<button_text name="newround">
+				<anchored to="nextround" width="100" position="right" offset="25">
+				</anchored>
+				<state textres="talis_label_newround" />
+				<script file="scripts/talis_actions.lua"/>
 			</button_text>
 			
+			<!-- seat editing -->
 			<button_iedit name="table_iedit">
 				<anchored>
 					<top parent="leftanchor" />
@@ -391,6 +385,7 @@
 				</script>
 			</button_iadd>
 			
+			<!-- entry labels -->
 			<label_ps name="handlabel">
 				<anchored to="headeranchor" position="insidetopleft" offset="20,40" width="25" />
 				<static>Hand</static>
@@ -406,8 +401,13 @@
 				<static>Name</static>
 				<center />
 			</label_ps>
+			<label_ps name="foldlabel">
+				<anchored to="namelabel" position="right" offset="10" width="35" />
+				<static>Fold?</static>
+				<center />
+			</label_ps>
 			<label_ps name="round1label">
-				<anchored to="namelabel" position="right" offset="10" width="85" />
+				<anchored to="foldlabel" position="right" offset="10" width="85" />
 				<static>Round 1 Action</static>
 				<center />
 			</label_ps>
@@ -437,7 +437,7 @@
 				<center />
 			</label_ps>
 			
-			
+			<!-- seats -->
 			<windowlist name="seats">
 				<anchored>
 					<top parent="headeranchor" anchor="bottom" relation="relative" offset="35" />
@@ -573,16 +573,44 @@
 				<center/>
 			</label_charfieldtop>
 			
+			<button_text name="lowstakes">
+				<anchored to="headeranchor" position="insidetopleft" offset="10,145" width="80" height="20" />
+				<state textres="talis_label_stakes_low" />
+				<script>
+					function onButtonPress()
+						
+					end
+				</script>
+			</button_text>
+			<button_text name="mediumstakes">
+				<anchored to="lowstakes"  position="right" offset="10" width="80" height="20" />
+				<state textres="talis_label_stakes_low" />
+				<script>
+					function onButtonPress()
+						
+					end
+				</script>
+			</button_text>
+			<button_text name="highstakes">
+				<anchored to="mediumstakes" position="right" offset="10" width="80" height="20" />
+				<state textres="talis_label_stakes_low" />
+				<script>
+					function onButtonPress()
+						
+					end
+				</script>
+			</button_text>
 			<!-- <button_text>
-				<anchored to="headeranchor" position="insidetopleft" offset="10,145" width="60" height="20" />
+				<anchored to="highstakes" position="right" offset="10" width="60" height="20" />
 				<state textres="talis_label_action" />
 				<script>
 					function onButtonPress()
 						local aList = ConnectionManagerADND.getUserLoggedInList();
 						for _,name in pairs(aList) do
-							local sUserNode = "talis.seats." .. name;
-							local wWindowClient = Interface.openWindow("talis_client",sUserNode);
-
+							local sUserNode = "seats." .. name;
+							local wWindowClient = Interface.openWindow("talis",sUserNode);
+							DB.setValue("talis_client" .. sUserNode .. ".player","string",sUserNode);
+							Debug.chat(DB.getValue("talis"))
 							local nAnteSP = DB.getValue("talis.tableRules.ante.SP");
 							DB.setValue(sUserNode .. ".spentSP","number",nAnteSP);
 							local nNewPotSP = DB.getValue("talis.pot.SP") + nAnteSP;
@@ -619,28 +647,28 @@
 				</anchored>
 			</button_idelete>
 			
-			<talisbetnumber name="seatnumber" source="hand_total">
+			<talisbetnumber name="hand" source="hand_total">
 				<bounds>28,10,25,25</bounds>
 				<hideonvalue>0</hideonvalue>
 				<delaykeyupdate />
 				<nodrag />
 			</talisbetnumber>
-			<!-- <buttonfield name="seatnumber">
-				<bounds>28,10,25,25</bounds>
-				<state icon="ct_passive" />
-				<state icon="ct_active" />
-				<script file="ct/scripts/ct_active.lua" />
-			</buttonfield> -->
+			
 			<string_tableresult name="player">
-				<anchored to="seatnumber" position="right" width="85" offset="10"/>
+				<anchored to="hand" position="right" width="85" offset="10"/>
 				<center />
 			</string_tableresult>
 			<string_tableresult name="name">
 				<anchored to="player" position="right" width="85" offset="10"/>
 				<center />
 			</string_tableresult>
+			<buttongroup_counter name="fold">
+				<anchored to="name" position="right" width="25" offset="15"/>
+				<sourcefields><current>folded</current></sourcefields>
+				<values><maximum>1</maximum></values>
+			</buttongroup_counter>
 			<talisbetnumber name="round1GP" source="bet.round1.GP">
-				<anchored to="name" position="right" width="25" offset="10"/>
+				<anchored to="fold" position="right" width="25" offset="10"/>
 			</talisbetnumber>
 			<label_gp>
 				<anchored to="round1GP"/>
