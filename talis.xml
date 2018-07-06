@@ -347,12 +347,7 @@
 				<state textres="talis_label_startgame" />
 				<script file="scripts/talis_actions.lua" />
 			</button_text>
-			<!-- <button_text name="nextround">
-				<anchored to="startgame" width="100" position="right" offset="25">
-				</anchored>
-				<state textres="talis_label_nextround" />
-				<script file="scripts/talis_actions.lua"/>
-			</button_text> -->
+			
 			<button_text name="newround">
 				<anchored to="startgame" width="100" position="right" offset="25">
 				</anchored>
@@ -387,7 +382,7 @@
 			
 			<!-- entry labels -->
 			<label_ps name="handlabel">
-				<anchored to="headeranchor" position="insidetopleft" offset="20,40" width="25" />
+				<anchored to="headeranchor" position="insidetopleft" offset="20,40" width="30" />
 				<static>Hand</static>
 				<center />
 			</label_ps>
@@ -403,37 +398,37 @@
 			</label_ps>
 			<label_ps name="foldlabel">
 				<anchored to="namelabel" position="right" offset="10" width="35" />
-				<static>Fold?</static>
+				<static>Fold</static>
 				<center />
 			</label_ps>
 			<label_ps name="round1label">
 				<anchored to="foldlabel" position="right" offset="10" width="85" />
-				<static>Round 1 Action</static>
+				<static>Round 1 Bets</static>
 				<center />
 			</label_ps>
 			<label_ps name="round1raise">
 				<anchored to="round1label" position="right" offset="10" width="35" />
-				<static>Raise?</static>
+				<static>Raise</static>
 				<center />
 			</label_ps>
 			<label_ps name="round2label">
 				<anchored to="round1raise" position="right" offset="10" width="85" />
-				<static>Round 2 Action</static>
+				<static>Round 2 Bets</static>
 				<center />
 			</label_ps>
 			<label_ps name="round2raise">
-				<anchored to="round2label" position="right" offset="10" width="45" />
-				<static>Raise?</static>
+				<anchored to="round2label" position="right" offset="10" width="35" />
+				<static>Raise</static>
 				<center />
 			</label_ps>
 			<label_ps name="round3label">
 				<anchored to="round2raise" position="right" offset="10" width="85" />
-				<static>Round 3 Action</static>
+				<static>Round 3 Bets</static>
 				<center />
 			</label_ps>
 			<label_ps name="round3raise">
-				<anchored to="round3label" position="right" offset="10" width="45" />
-				<static>Raise?</static>
+				<anchored to="round3label" position="right" offset="10" width="35" />
+				<static>Raise</static>
 				<center />
 			</label_ps>
 			
@@ -574,7 +569,7 @@
 			</label_charfieldtop>
 			
 			<button_text name="lowstakes">
-				<anchored to="headeranchor" position="insidetopleft" offset="10,145" width="80" height="20" />
+				<anchored to="headeranchor" position="insidetopleft" offset="10,145" width="90" height="20" />
 				<state textres="talis_label_stakes_low" />
 				<script>
 					function onButtonPress()
@@ -594,7 +589,7 @@
 				</script>
 			</button_text>
 			<button_text name="mediumstakes">
-				<anchored to="lowstakes"  position="right" offset="10" width="80" height="20" />
+				<anchored to="lowstakes"  position="right" offset="10" width="90" height="20" />
 				<state textres="talis_label_stakes_medium" />
 				<script>
 					function onButtonPress()
@@ -614,7 +609,7 @@
 				</script>
 			</button_text>
 			<button_text name="highstakes">
-				<anchored to="mediumstakes" position="right" offset="10" width="80" height="20" />
+				<anchored to="mediumstakes" position="right" offset="10" width="90" height="20" />
 				<state textres="talis_label_stakes_high" />
 				<script>
 					function onButtonPress()
@@ -696,12 +691,12 @@
 				<center />
 			</string_tableresult>
 			<buttongroup_counter name="fold">
-				<anchored to="name" position="right" width="25" offset="15"/>
+				<anchored to="name" position="right" width="25" offset="25"/>
 				<sourcefields><current>folded</current></sourcefields>
 				<values><maximum>1</maximum></values>
 			</buttongroup_counter>
 			<talisbetnumber name="round1GP" source="bet.round1.GP">
-				<anchored to="fold" position="right" width="25" offset="10"/>
+				<anchored to="fold" position="right" width="25" offset="22"/>
 			</talisbetnumber>
 			<label_gp>
 				<anchored to="round1GP"/>
@@ -719,13 +714,13 @@
 				<anchored to="round1CP"/>
 			</label_cp>
 			<buttongroup_counter name="round1raise">
-				<anchored to="round1CP" position="right" width="25" offset="15"/>
+				<anchored to="round1CP" position="right" width="25" offset="19"/>
 				<sourcefields><current>bet.round1.raise</current></sourcefields>
 				<values><maximum>1</maximum></values>
 			</buttongroup_counter>
 			
 			<talisbetnumber name="round2GP" source="bet.round2.GP">
-				<anchored to="round1raise" position="right" width="25" offset="30"/>
+				<anchored to="round1raise" position="right" width="25" offset="20"/>
 			</talisbetnumber>
 			<label_gp>
 				<anchored to="round2GP"/>
@@ -743,13 +738,13 @@
 				<anchored to="round2CP"/>
 			</label_cp>
 			<buttongroup_counter name="round2raise">
-				<anchored to="round2CP" position="right" width="25" offset="15"/>
+				<anchored to="round2CP" position="right" width="25" offset="25"/>
 				<sourcefields><current>bet.round2.raise</current></sourcefields>
 				<values><maximum>1</maximum></values>
 			</buttongroup_counter>
 
 			<talisbetnumber name="round3GP" source="bet.round3.GP">
-				<anchored to="round2raise" position="right" width="25" offset="30"/>
+				<anchored to="round2raise" position="right" width="25" offset="25"/>
 			</talisbetnumber>
 			<label_gp>
 				<anchored to="round3GP"/>

@@ -48,12 +48,16 @@ function sortfuncSimple(node1, node2)
 end
 
 
-function getSortedSeatList()
+function getSortedSeatList(showFolded)
 	local aEntries = {};
 	for _,v in pairs(getSeatNodes()) do
---		Debug.chat(v);
-vNodeName = DB.getPath(v);
-		if DB.getValue(vNodeName .. ".folded") ~= 1 then
+		--Debug.chat(v);
+		vNodeName = DB.getPath(v);
+		if showFolded == false then
+			if DB.getValue(vNodeName .. ".folded") ~= 1 then
+				table.insert(aEntries, v);
+			end
+		else
 			table.insert(aEntries, v);
 		end
 	end
@@ -67,7 +71,7 @@ end
 function nextPlayer(bCheck)
 	local nodeActive = getActiveSeat();
 	local nIndexActive = 0;
-	-- Determine the next actor
+	-- Determine the next seat node
 	local nodeNext = nil;
 	local aEntries = getSortedSeatList();
 	if #aEntries > 0 then
@@ -95,21 +99,38 @@ function nextPlayer(bCheck)
 	local sNodeNext = DB.getPath(nodeNext);
 	local sCurrentRound = "round" .. DB.getValue("talis.currentround");
 	local sNodeNextBets = ".bet." .. sCurrentRound;
-	if bCheck ~= true and DB.getValue(sNodeNext .. sNodeNextBets .. ".GP") == DB.getValue("talis.pot.currentbetGP") and
-	DB.getValue(sNodeNext .. sNodeNextBets .. ".SP") == DB.getValue("talis.pot.currentbetSP") and
-	DB.getValue(sNodeNext .. sNodeNextBets .. ".CP") == DB.getValue("talis.pot.currentbetCP") then
+	local currentBetCP = DB.getValue("talis.pot.currentbetCP");
+	local currentBetSP = DB.getValue("talis.pot.currentbetSP");
+	local currentBetGP = DB.getValue("talis.pot.currentbetGP");
+	local playerBetCP = DB.getValue(sNodeNext .. sNodeNextBets .. ".CP");
+	local playerBetSP = DB.getValue(sNodeNext .. sNodeNextBets .. ".SP");
+	local playerBetGP = DB.getValue(sNodeNext .. sNodeNextBets .. ".GP");
+	if bCheck ~= true and playerBetGP == currentBetGP and playerBetSP == currentBetSP and playerBetCP == currentBetCP and DB.getValue(sNodeNext .. ".folded") ~= 1 then
 		nextRound();
-	else
+	elseif DB.getValue(sNodeNext .. ".folded") ~= 1 then
 		DB.setValue(sNodeActive .. ".active","number",0)
 		DB.setValue(sNodeNext .. ".active","number",1)
 		User.ringBell(DB.findNode(sNodeNext).getOwner());
-
 		local rMessage = {};
 		local sChatText = DB.getValue(sNodeNext .. ".name") .. "'s Turn";
+		if playerBetGP == currentBetGP and playerBetSP == currentBetSP and playerBetCP == currentBetCP then
+			sChatText = sChatText .. ": Check";
+		end
+		if playerBetGP + playerBetSP + playerBetCP < currentBetGP + currentBetSP + currentBetCP then
+			sChatText = sChatText .. ": Call";
+		end
+		if playerBetGP + playerBetSP + playerBetCP <= currentBetGP + currentBetSP + currentBetCP and DB.getValue(sNodeNext .. sNodeNextBets .. ".raise") ~= 1 then
+			sChatText = sChatText .. ", Raise";
+		end
+		sChatText = sChatText .. " or Fold";
 		rMessage.text = sChatText;
 		rMessage.mode = "ooc";
 		rMessage.font = "whisperfont";
 		Comm.deliverChatMessage(rMessage);
+	else
+		DB.setValue(sNodeActive .. ".active","number",0)
+		DB.setValue(sNodeNext .. ".active","number",1)
+		nextPlayer(bCheck);
 	end
 end
 
@@ -165,11 +186,10 @@ end
 
 
 function endGame()
-	-- tbd
 	local rMessage = {};
 	local sChatText = "";
 	local sShowdown = "";
-	local aEntries = getSortedSeatList();
+	local aEntries = getSortedSeatList(false);
 	if #aEntries > 1 then
 		sChatText = "Showdown - ";
 	else 
@@ -224,7 +244,7 @@ function nextRound()
 	end
 	-- reset active player to first player in sorted list
 	local nodeActive = getActiveSeat();
-	local aEntries = getSortedSeatList();
+	local aEntries = getSortedSeatList(false);
 	local nIndexFirst = 0;
 	for i = 1,#aEntries do
 		if aEntries[i] then
@@ -241,6 +261,30 @@ end
 
 
 function newRound()
+	DB.setValue("talis.currentround","number",1);
+	DB.setValue("talis.pot.currentbetCP","number",0);
+	DB.setValue("talis.pot.currentbetSP","number",0);
+	DB.setValue("talis.pot.currentbetGP","number",0);
+	DB.setValue("talis.pot.CP","number",0);
+	DB.setValue("talis.pot.SP","number",0);
+	DB.setValue("talis.pot.GP","number",0);
+	for _,v in pairs(getSeatNodes()) do
+		vNodeName = DB.getPath(v);
+		for i=1,3 do
+			sRound = tostring(i);
+			DB.setValue(vNodeName .. ".active","number",0);
+			DB.setValue(vNodeName .. ".folded","number",0);
+			DB.setValue(vNodeName .. ".hand_total","number",0);
+			DB.setValue(vNodeName .. ".card" .. sRound .. "_value","number",0);
+			DB.setValue(vNodeName .. ".bet.round" .. sRound .. ".CP","number",0);
+			DB.setValue(vNodeName .. ".bet.round" .. sRound .. ".SP","number",0);
+			DB.setValue(vNodeName .. ".bet.round" .. sRound .. ".GP","number",0);
+			DB.setValue(vNodeName .. ".bet.round" .. sRound .. ".raise","number",0);
+			DB.setValue(vNodeName .. ".spentCP","number",0);
+			DB.setValue(vNodeName .. ".spentSP","number",0);
+			DB.setValue(vNodeName .. ".spentGP","number",0);
+		end
+	end
 	
 end
 
@@ -262,9 +306,9 @@ function startRoundMessage(nRound)
 	rMessage.sender = "Dealer";
 	rMessage.mode = "chat";
 	Comm.deliverChatMessage(rMessage);
-	local aEntries = getSortedSeatList();
+	local aEntries = getSortedSeatList(false);
 	local sFirstSeat = DB.getPath(aEntries[1]);
-	sChatText = DB.getValue(sFirstSeat .. ".name") .. " opens";
+	sChatText = DB.getValue(sFirstSeat .. ".name") .. " starts the betting";
 	rMessage.text = sChatText;
 	rMessage.sender = "";
 	rMessage.mode = "ooc";
@@ -409,9 +453,8 @@ function fold(sTalisUserNode,sRoundNumber)
 	rMessage.sender = "Dealer";
 	Comm.deliverChatMessage(rMessage);
 	DB.setValue(sTalisUserNode .. ".folded","number",1);
-	local aEntries = getSortedSeatList();
+	local aEntries = getSortedSeatList(false);
 	if #aEntries == 1 then
-		sChatText = "Nobody left"
 		endGame();
 	else
 		nextPlayer();

@@ -18,7 +18,6 @@ function processTalis(sCommand, sParams)
 			DB.setPublic("talis",true);
 			DB.deleteChildren("talis.seats");
 			DB.findNode("talis.pot");
---			DB.setPublic("talis.pot",true);
 			DB.setValue("talis.pot.CP","number",0);
 			DB.setValue("talis.pot.SP","number",0);
 			DB.setValue("talis.pot.GP","number",0);
