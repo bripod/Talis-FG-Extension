@@ -5,7 +5,7 @@
 <root version="3.0">
 
 	<properties>
-		<name>CoreRPG - Talis2</name>
+		<name>CoreRPG - Talis Game</name>
 		<version>0.1</version>
 		<loadorder>99</loadorder>
 		<description>

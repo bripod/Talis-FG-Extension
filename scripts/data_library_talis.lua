@@ -32,10 +32,15 @@ function processTalis(sCommand, sParams)
 			DB.createNode("talis").setPublic(true);
 			DB.createNode("talis.seats");
 			DB.createNode("talis.pot").setPublic(true);
-			DB.createNode("talis.pot.CP");
-			DB.createNode("talis.pot.SP");
-			DB.createNode("talis.pot.GP");
+			DB.createNode("talis.pot.CP","number");
+			DB.createNode("talis.pot.SP","number");
+			DB.createNode("talis.pot.GP","number");
 			DB.createNode("talis.tableRules").setPublic(true);
+			DB.createNode("talis.pot.currentbetCP","number");
+			DB.createNode("talis.pot.currentbetSP","number");
+			DB.createNode("talis.pot.currentbetGP","number");
+			DB.setValue("talis.currentround","number",1);
+			DB.setPublic("talis.currentround",true);
 		end
 		
 		-- create the Host window, not shared with users

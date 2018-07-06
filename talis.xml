@@ -347,14 +347,14 @@
 				<state textres="talis_label_startgame" />
 				<script file="scripts/talis_actions.lua" />
 			</button_text>
-			<button_text name="nextround">
+			<!-- <button_text name="nextround">
 				<anchored to="startgame" width="100" position="right" offset="25">
 				</anchored>
 				<state textres="talis_label_nextround" />
 				<script file="scripts/talis_actions.lua"/>
-			</button_text>
+			</button_text> -->
 			<button_text name="newround">
-				<anchored to="nextround" width="100" position="right" offset="25">
+				<anchored to="startgame" width="100" position="right" offset="25">
 				</anchored>
 				<state textres="talis_label_newround" />
 				<script file="scripts/talis_actions.lua"/>
@@ -578,25 +578,58 @@
 				<state textres="talis_label_stakes_low" />
 				<script>
 					function onButtonPress()
-						
+						DB.setValue("talis.tableRules.ante.GP","number",0);
+						DB.setValue("talis.tableRules.ante.SP","number",1);
+						DB.setValue("talis.tableRules.ante.CP","number",0);
+						DB.setValue("talis.tableRules.round1bet.GP","number",0);
+						DB.setValue("talis.tableRules.round1bet.SP","number",2);
+						DB.setValue("talis.tableRules.round1bet.CP","number",5);
+						DB.setValue("talis.tableRules.round2bet.GP","number",0);
+						DB.setValue("talis.tableRules.round2bet.SP","number",6);
+						DB.setValue("talis.tableRules.round2bet.CP","number",3);
+						DB.setValue("talis.tableRules.round3bet.GP","number",1);
+						DB.setValue("talis.tableRules.round3bet.SP","number",8);
+						DB.setValue("talis.tableRules.round3bet.CP","number",9);
 					end
 				</script>
 			</button_text>
 			<button_text name="mediumstakes">
 				<anchored to="lowstakes"  position="right" offset="10" width="80" height="20" />
-				<state textres="talis_label_stakes_low" />
+				<state textres="talis_label_stakes_medium" />
 				<script>
 					function onButtonPress()
-						
+						DB.setValue("talis.tableRules.ante.GP","number",0);
+						DB.setValue("talis.tableRules.ante.SP","number",2);
+						DB.setValue("talis.tableRules.ante.CP","number",5);
+						DB.setValue("talis.tableRules.round1bet.GP","number",0);
+						DB.setValue("talis.tableRules.round1bet.SP","number",6);
+						DB.setValue("talis.tableRules.round1bet.CP","number",3);
+						DB.setValue("talis.tableRules.round2bet.GP","number",1);
+						DB.setValue("talis.tableRules.round2bet.SP","number",2);
+						DB.setValue("talis.tableRules.round2bet.CP","number",6);
+						DB.setValue("talis.tableRules.round3bet.GP","number",3);
+						DB.setValue("talis.tableRules.round3bet.SP","number",7);
+						DB.setValue("talis.tableRules.round3bet.CP","number",8);
 					end
 				</script>
 			</button_text>
 			<button_text name="highstakes">
 				<anchored to="mediumstakes" position="right" offset="10" width="80" height="20" />
-				<state textres="talis_label_stakes_low" />
+				<state textres="talis_label_stakes_high" />
 				<script>
 					function onButtonPress()
-						
+						DB.setValue("talis.tableRules.ante.GP","number",0);
+						DB.setValue("talis.tableRules.ante.SP","number",6);
+						DB.setValue("talis.tableRules.ante.CP","number",3);
+						DB.setValue("talis.tableRules.round1bet.GP","number",1);
+						DB.setValue("talis.tableRules.round1bet.SP","number",6);
+						DB.setValue("talis.tableRules.round1bet.CP","number",5);
+						DB.setValue("talis.tableRules.round2bet.GP","number",3);
+						DB.setValue("talis.tableRules.round2bet.SP","number",3);
+						DB.setValue("talis.tableRules.round2bet.CP","number",0);
+						DB.setValue("talis.tableRules.round3bet.GP","number",9);
+						DB.setValue("talis.tableRules.round3bet.SP","number",9);
+						DB.setValue("talis.tableRules.round3bet.CP","number",0);
 					end
 				</script>
 			</button_text>
